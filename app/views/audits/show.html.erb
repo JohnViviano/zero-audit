@@ -1,10 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<hr>
+<h3>Findings</h3>
 
-<%= render @audit %>
-
-<div>
-  <%= link_to "Edit this audit", edit_audit_path(@audit) %> |
-  <%= link_to "Back to audits", audits_path %>
-
-  <%= button_to "Destroy this audit", @audit, method: :delete %>
+<div class="mb-3">
+  <%= link_to "Add Finding", new_audit_finding_path(@audit), class: "btn btn-sm btn-primary" %>
 </div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>Due On</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @audit.findings.each do |finding| %>
+      <tr>
+        <td><%= link_to finding.title, [@audit, finding] %></td>
+        <td>
+          <% sev_class = case finding.severity
+            when "low" then "bg-success"
+            when "medium" then "bg-warning"
+            when "high" then "bg-danger"
+            when "critical" then "bg-dark"
+          end %>
+          <span class="badge <%= sev_class %>"><%= finding.severity.humanize %></span>
+        </td>
+        <td><%= finding.status.humanize %></td>
+        <td><%= finding.due_on&.strftime("%b %d, %Y") %></td>
+        <td><%= link_to "Edit", edit_audit_finding_path(@audit, finding), class: "btn btn-sm btn-outline-secondary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

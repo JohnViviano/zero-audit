@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  audit: one
+  title: MyString
+  severity: 1
+  description: MyText
+  remediation: MyText
+  due_on: 2025-11-11
+  status: 1
+
+two:
+  audit: two
+  title: MyString
+  severity: 1
+  description: MyText
+  remediation: MyText
+  due_on: 2025-11-11
+  status: 1

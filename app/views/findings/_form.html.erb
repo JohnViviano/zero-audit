@@ -1,0 +1,53 @@
+<%= form_with(model: [@audit, finding]) do |form| %>
+
+  <% if finding.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(finding.errors.count, "error") %> prohibited this finding from being saved:</h2>
+
+      <ul>
+        <% finding.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :audit_id, style: "display: block" %>
+    <%= form.text_field :audit_id %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :severity, style: "display: block" %>
+    <%= form.number_field :severity %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :remediation, style: "display: block" %>
+    <%= form.text_area :remediation %>
+  </div>
+
+  <div>
+    <%= form.label :due_on, style: "display: block" %>
+    <%= form.date_field :due_on %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

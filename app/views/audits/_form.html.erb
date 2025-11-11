@@ -1,42 +1,44 @@
-<%= form_with(model: audit) do |form| %>
-  <% if audit.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(audit.errors.count, "error") %> prohibited this audit from being saved:</h2>
-
+<%= form_with(model: [@audit, finding]) do |form| %>
+  <% if finding.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(finding.errors.count, "error") %> prohibited this finding from being saved:</h2>
       <ul>
-        <% audit.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% finding.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :owner, style: "display: block" %>
-    <%= form.text_field :owner %>
+  <div class="mb-3">
+    <%= form.label :severity %>
+    <%= form.select :severity, Finding.severities.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
+  <div class="mb-3">
+    <%= form.label :status %>
+    <%= form.select :status, Finding.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :due_on, style: "display: block" %>
-    <%= form.date_field :due_on %>
+  <div class="mb-3">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control", rows: 3 %>
   </div>
 
-  <div>
-    <%= form.label :details, style: "display: block" %>
-    <%= form.text_area :details %>
+  <div class="mb-3">
+    <%= form.label :remediation %>
+    <%= form.text_area :remediation, class: "form-control", rows: 3 %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.label :due_on %>
+    <%= form.date_field :due_on, class: "form-control" %>
   </div>
+
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>

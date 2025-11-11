@@ -1,14 +1,36 @@
-<p style="color: green"><%= notice %></p>
+<h1 class="mb-3">IT Audits</h1>
 
-<h1>Audits</h1>
-
-<div id="audits">
-  <% @audits.each do |audit| %>
-    <%= render audit %>
-    <p>
-      <%= link_to "Show this audit", audit %>
-    </p>
-  <% end %>
+<div class="mb-3">
+  <%= link_to "New Audit", new_audit_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New audit", new_audit_path %>
+<table class="table table-hover align-middle">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Owner</th>
+      <th>Status</th>
+      <th>Due On</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr>
+        <td><%= link_to audit.title, audit %></td>
+        <td><%= audit.owner %></td>
+        <td>
+          <% badge_class = case audit.status
+            when "open" then "bg-danger"
+            when "in_progress" then "bg-warning"
+            when "closed" then "bg-success"
+          end %>
+          <span class="badge <%= badge_class %>"><%= audit.status.humanize %></span>
+        </td>
+        <td><%= audit.due_on&.strftime("%b %d, %Y") %></td>
+        <td><%= link_to "Edit", edit_audit_path(audit), class: "btn btn-sm btn-outline-secondary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
