@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @audit %>
+
+<div>
+  <%= link_to "Edit this audit", edit_audit_path(@audit) %> |
+  <%= link_to "Back to audits", audits_path %>
+
+  <%= button_to "Destroy this audit", @audit, method: :delete %>
+</div>

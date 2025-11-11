@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ZeroAudit</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container">
+      <a class="navbar-brand" href="/">IT Audit</a>
+      <div class="ms-auto">
+        <% if user_signed_in? %>
+          <span class="me-2">Hi, <%= current_user.email %></span>
+          <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-secondary btn-sm" %>
+        <% else %>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <%= content_tag(:p, notice, class: 'alert alert-info') if notice.present? %>
+    <%= content_tag(:p, alert, class: 'alert alert-danger') if alert.present? %>
+    <%= yield %>
+  </div>
+</body>
+
+
+</html>
