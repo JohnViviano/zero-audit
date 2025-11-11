@@ -1,10 +1,47 @@
-<p style="color: green"><%= notice %></p>
+<p class="mb-3">
+  <strong>Title:</strong>
+  <%= @finding.title %>
+</p>
 
-<%= render @finding %>
+<p>
+  <strong>Severity:</strong>
+  <%= @finding.severity.humanize %>
+</p>
 
-<div>
-  <%= link_to "Edit this finding", edit_finding_path(@finding) %> |
-  <%= link_to "Back to findings", findings_path %>
+<p>
+  <strong>Status:</strong>
+  <%= @finding.status.humanize %>
+</p>
 
-  <%= button_to "Destroy this finding", @finding, method: :delete %>
+<p>
+  <strong>Description:</strong>
+  <%= @finding.description %>
+</p>
+
+<p>
+  <strong>Remediation:</strong>
+  <%= @finding.remediation %>
+</p>
+
+<p>
+  <strong>Due on:</strong>
+  <%= @finding.due_on&.strftime("%b %d, %Y") %>
+</p>
+
+<hr>
+
+<div class="d-flex gap-2">
+  <%= link_to "Edit this finding",
+              edit_audit_finding_path(@audit, @finding),
+              class: "btn btn-primary" %>
+
+  <%= link_to "Back to findings",
+              audit_findings_path(@audit),
+              class: "btn btn-secondary" %>
+
+  <%= button_to "Destroy this finding",
+                [@audit, @finding],
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-danger" %>
 </div>

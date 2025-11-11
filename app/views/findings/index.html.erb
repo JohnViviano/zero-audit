@@ -1,14 +1,37 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Findings</h1>
 
-<div id="findings">
-  <% @findings.each do |finding| %>
-    <%= render finding %>
-    <p>
-      <%= link_to "Show this finding", finding %>
-    </p>
-  <% end %>
+<div class="mb-3">
+  <%= link_to "New Finding", new_audit_finding_path(@audit), class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New finding", new_finding_path %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>Due On</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @findings.each do |finding| %>
+      <tr>
+        <td><%= finding.title %></td>
+        <td><%= finding.severity.humanize %></td>
+        <td><%= finding.status.humanize %></td>
+        <td><%= finding.due_on&.strftime("%b %d, %Y") %></td>
+        <td>
+          <%= link_to "Show", audit_finding_path(@audit, finding), class: "btn btn-sm btn-outline-primary" %>
+          <%= link_to "Edit", edit_audit_finding_path(@audit, finding), class: "btn btn-sm btn-outline-secondary" %>
+          <%= button_to "Delete",
+                        audit_finding_path(@audit, finding),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
